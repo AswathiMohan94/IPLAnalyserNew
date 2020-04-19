@@ -66,9 +66,9 @@ public class IPLAnalyserTest {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIPLdata(IPL_CSV);
-            String sortedData = iplAnalyser.getAverageWiseSortedData();
+            String sortedData = iplAnalyser.getStrikingRates();
             IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
-            Assert.assertEquals("MS Dhoni", iplCSV[0].PLAYER);
+            Assert.assertEquals("Ishant Sharma", iplCSV[0].PLAYER);
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
         }
