@@ -37,4 +37,16 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void Batsman_MaxSix() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLdata(IPL_CSV);
+            String sortedData = iplAnalyser.getMaxSix();
+            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
+            Assert.assertEquals("Andre Russell", iplCSV[0].PLAYER);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
