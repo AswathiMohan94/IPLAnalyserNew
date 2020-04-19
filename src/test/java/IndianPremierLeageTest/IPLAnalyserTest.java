@@ -24,4 +24,17 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void StrikingRates_Batsman() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLdata(IPL_CSV);
+            String sortedData = iplAnalyser.getStrikingRates();
+            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
+            Assert.assertEquals("Ishant Sharma", iplCSV[0].PLAYER);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
