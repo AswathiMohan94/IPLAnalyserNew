@@ -61,4 +61,16 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void BestAvg_GreatStrikigRates() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLdata(IPL_CSV);
+            String sortedData = iplAnalyser.getAverageWiseSortedData();
+            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
+            Assert.assertEquals("MS Dhoni", iplCSV[0].PLAYER);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
