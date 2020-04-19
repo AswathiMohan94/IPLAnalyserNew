@@ -50,4 +50,16 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
+     @Test
+    public void Batsman_Maxfour() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLdata(IPL_CSV);
+            String sortedData = iplAnalyser.getMaxfour();
+            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
+            Assert.assertEquals("Shikhar Dhawan", iplCSV[0].PLAYER);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
