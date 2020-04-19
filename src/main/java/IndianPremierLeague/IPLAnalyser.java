@@ -106,4 +106,25 @@ public class IPLAnalyser {
         for (Map.Entry<String, IPLdataDAO> entry : listOfEntries) {
             sortedByValue.put(entry.getKey(), entry.getValue()); }
         return sortedByValue; }
+     public String getMaxfour() throws IPLAnalyserException {
+        if (IPLdataMap == null || IPLdataMap.size() == 0)
+            throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
+        Comparator<Map.Entry<String, IPLdataDAO>> fourComparator = Comparator.comparing(four -> four.getValue().four);
+        LinkedHashMap<String, IPLdataDAO> sortedByValue = this.SortMaxfour(fourComparator);
+        ArrayList<IPLdataDAO> list1 = new ArrayList<>(sortedByValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
+        Collections.reverse(list1);
+        String sortedStateCodeJson = new Gson().toJson(list1);
+        System.out.println( "1"+sortedStateCodeJson);
+        return sortedStateCodeJson;
+    }
+
+
+    private <E extends IPLdataDAO> LinkedHashMap<String, IPLdataDAO> SortMaxfour(Comparator fourComparator) {
+        Set<Map.Entry<String, IPLdataDAO>> entries = IPLdataMap.entrySet();
+        List<Map.Entry<String, IPLdataDAO>> listOfEntries = new ArrayList<>(entries);
+        Collections.sort(listOfEntries, fourComparator);
+        LinkedHashMap<String, IPLdataDAO> sortedByValue = new LinkedHashMap<>(listOfEntries.size());
+        for (Map.Entry<String, IPLdataDAO> entry : listOfEntries) {
+            sortedByValue.put(entry.getKey(), entry.getValue()); }
+        return sortedByValue; }
 }
