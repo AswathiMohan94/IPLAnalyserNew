@@ -28,8 +28,8 @@ public class IPLAnalyser {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IPLdataCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IPLdataCSV.class);
+            int count=0;
             while (csvFileIterator.hasNext()) {
-
                 IPLdataDAO ipl = new IPLdataDAO(csvFileIterator.next());
                 this.IPLdataMap.put(ipl.PLAYER, ipl);
                /* for (Map.Entry<String, IPLdataDAO> entry : IPLdataMap.entrySet()) {
@@ -49,8 +49,8 @@ public class IPLAnalyser {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IPLWktsCSV> csvWktFileIterator = csvBuilder.getCSVFileIterator(reader, IPLWktsCSV.class);
+            int count=0;
             while (csvWktFileIterator.hasNext()) {
-
                 IPLWktsDAO Wkts = new IPLWktsDAO(csvWktFileIterator.next());
                 this.IPLWktMap.put(Wkts.PLAYER, Wkts);
                /* for (Map.Entry<String, IPLdataDAO> entry : IPLdataMap.entrySet()) {
@@ -260,33 +260,65 @@ public class IPLAnalyser {
         double fourW = 0;
         String bowler = "";
         List<String[]> records;
-        System.out.println("1");
+        int count=0;
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
             CSVReader csvReader = new CSVReader(bufferedReader);
             records = csvReader.readAll();
-            System.out.println("2");
-            for (String[] record : records) {
-                System.out.println("3");
-                Double individualStrikeRate = Double.parseDouble(record[10]);
-                System.out.println("4");
-                Double individualfourW = Double.parseDouble(record[11]);
-                System.out.println(5);
-                if (fourW <= individualStrikeRate) {
-                    if (strikeRate < individualfourW) {
-                        strikeRate = individualStrikeRate;
-                        fourW = individualfourW;
-                        bowler = record[1];
+                for (String[] record : records) {
+                    if(count>0) {
+                    Double individualStrikeRate = Double.parseDouble(record[10]);
+                    Double individualfourW = Double.parseDouble(record[11]);
 
+                    if (fourW <= individualStrikeRate) {
+                        if (strikeRate < individualfourW) {
+                            strikeRate = individualStrikeRate;
+                            fourW = individualfourW;
+                            bowler = record[1];
+                        }
                     }
-                }
+                }count++;
             }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             return bowler;
         }
 
+    }
+
+    public static String BowlingAverages_StrikingRates(String csvFilepath) {
+        double average = 0;
+        double strikeRate = 0;
+        String bowler = "";
+        List<String[]> records;
+        int count=0;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            records = csvReader.readAll();
+            for (String[] record : records) {
+               if(count>0){
+                   Double individualStrikeRate = Double.parseDouble(record[10]);
+                   Double individualAverage = Double.parseDouble(record[8]);
+
+                   if (strikeRate <= individualAverage) {
+                       if (average < individualAverage) {
+                           average = individualAverage;
+                           strikeRate = individualStrikeRate;
+                           bowler = record[1];
+                       }
+
+                   }
+
+               }count++;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return bowler;
+        }
     }
 }

@@ -109,7 +109,6 @@ public class IPLAnalyserTest {
             iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
             String sortedData = iplAnalyser.getMaxBowling_Avg();
             System.out.println(sortedData);
-
             IPLWktsCSV[] iplCSV = new Gson().fromJson(sortedData, IPLWktsCSV[].class);
             Assert.assertEquals("Krishnappa Gowtham", iplCSV[0].PLAYER);
         } catch (IPLAnalyserException e) {
@@ -151,10 +150,14 @@ public class IPLAnalyserTest {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
         //  iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
         String Data = iplAnalyser.BestStrikingRates_5w(IPL_CSV_WICKETS);
-        System.out.println(Data);
-
-       // IPLWktsCSV[] iplCSV = new Gson().fromJson(Data, IPLWktsCSV[].class);
-        Assert.assertEquals("Ben Cutting", Data);
+        Assert.assertEquals("Imran Tahir", Data);
+    }
+    @Test
+    public void BestAverages_with_StrikingRates_Bowlers()  {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        //  iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
+        String Data = iplAnalyser.BowlingAverages_StrikingRates(IPL_CSV_WICKETS);
+        Assert.assertEquals("Krishnappa Gowtham", Data);
     }
 
 }
