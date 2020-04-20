@@ -132,4 +132,19 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void BestEconomyRates_Bowlers()  {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
+            String sortedData = iplAnalyser.BestEconomyRates_Bowlers();
+            System.out.println(sortedData);
+
+            IPLWktsCSV[] iplCSV = new Gson().fromJson(sortedData, IPLWktsCSV[].class);
+            Assert.assertEquals("Ben Cutting", iplCSV[0].PLAYER);
+        } catch (IPLAnalyserException e) {
+
+            e.printStackTrace();
+        }
+    }
 }

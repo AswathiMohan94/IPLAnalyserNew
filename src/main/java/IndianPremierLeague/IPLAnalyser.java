@@ -228,6 +228,28 @@ public class IPLAnalyser {
         }
         return sortedByBowlingValue;
     }
+    public String BestEconomyRates_Bowlers() throws IPLAnalyserException {
+        if (IPLWktMap == null || IPLWktMap.size() == 0)
+            throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
+        Comparator<Map.Entry<String, IPLWktsDAO>> EconComparator = Comparator.comparing(Econ-> Econ.getValue().Econ);
+        LinkedHashMap<String, IPLWktsDAO> sortedByBowlingValue = this.SortEconomyRates_Bowlers(EconComparator);
+        ArrayList<IPLWktsDAO> list2 = new ArrayList<>(sortedByBowlingValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
+        Collections.reverse(list2);
+        String sortedStateCodeJson = new Gson().toJson(list2);
+        System.out.println("1" + sortedStateCodeJson);
+        return sortedStateCodeJson;
+    }
+
+    private <E extends IPLWktsDAO> LinkedHashMap<String, IPLWktsDAO> SortEconomyRates_Bowlers(Comparator EconComparator) {
+        Set<Map.Entry<String, IPLWktsDAO>> entries = IPLWktMap.entrySet();
+        List<Map.Entry<String, IPLWktsDAO>> listOfEntries = new ArrayList<>(entries);
+        Collections.sort(listOfEntries, EconComparator);
+        LinkedHashMap<String, IPLWktsDAO> sortedByBowlingValue = new LinkedHashMap<>(listOfEntries.size());
+        for (Map.Entry<String, IPLWktsDAO> entry : listOfEntries) {
+            sortedByBowlingValue.put(entry.getKey(), entry.getValue());
+        }
+        return sortedByBowlingValue;
+    }
 
 
 }
