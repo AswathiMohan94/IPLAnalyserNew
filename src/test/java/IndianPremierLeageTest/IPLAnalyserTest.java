@@ -137,10 +137,10 @@ public class IPLAnalyserTest {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
-            String sortedData = iplAnalyser.BestEconomyRates_Bowlers();
-            System.out.println(sortedData);
+            String Data = iplAnalyser.BestEconomyRates_Bowlers();
+            System.out.println(Data);
 
-            IPLWktsCSV[] iplCSV = new Gson().fromJson(sortedData, IPLWktsCSV[].class);
+            IPLWktsCSV[] iplCSV = new Gson().fromJson(Data, IPLWktsCSV[].class);
             Assert.assertEquals("Ben Cutting", iplCSV[0].PLAYER);
         } catch (IPLAnalyserException e) {
 
