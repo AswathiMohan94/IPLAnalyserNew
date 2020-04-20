@@ -10,7 +10,7 @@ public class IPLAnalyserTest {
     private static final String IPL_CSV = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
 
     @Test
-    public void TopBattingAveragesOfCricketers() throws IPLAnalyserException {
+    public void TopBattingAveragesOfCricketers()  {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIPLdata(IPL_CSV);
@@ -82,6 +82,21 @@ public class IPLAnalyserTest {
             IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
             Assert.assertEquals("MS Dhoni", iplCSV[0].PLAYER);
         } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void MaxRunsOfCricketers()  {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLdata(IPL_CSV);
+            String sortedData = iplAnalyser.getMaxRuns();
+            System.out.println(sortedData);
+
+            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
+            Assert.assertEquals("David Warner", iplCSV[0].PLAYER);
+        } catch (IPLAnalyserException e) {
+
             e.printStackTrace();
         }
     }

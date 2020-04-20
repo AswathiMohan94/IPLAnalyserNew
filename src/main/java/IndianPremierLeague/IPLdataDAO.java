@@ -6,7 +6,7 @@ public class IPLdataDAO {
     public double Avg;
     public int six;
     public int four;
-
+    public int Runs;
 
 
     public IPLdataDAO(IPLdataCSV iplDataCSV) {
@@ -15,6 +15,7 @@ public class IPLdataDAO {
         this.SR = iplDataCSV.SR;
         this.six = iplDataCSV.six;
         this.four = iplDataCSV.four;
+        this.Runs = iplDataCSV.Runs;
 
 
 
