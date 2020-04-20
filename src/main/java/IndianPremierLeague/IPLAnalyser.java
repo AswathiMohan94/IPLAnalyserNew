@@ -31,9 +31,6 @@ public class IPLAnalyser {
 
                 IPLdataDAO ipl = new IPLdataDAO(csvFileIterator.next());
                 this.IPLdataMap.put(ipl.PLAYER, ipl);
-               /* for (Map.Entry<String, IPLdataDAO> entry : IPLdataMap.entrySet()) {
-                    System.out.println(entry.getKey() + " : " + entry.getValue());
-                }*/
             }
             return this.IPLdataMap.size();
         } catch (IOException e) {
