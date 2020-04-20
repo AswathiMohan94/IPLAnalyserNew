@@ -163,4 +163,11 @@ public class IPLAnalyserTest {
         String Data = iplAnalyser.Wickets_BestAvg(IPL_CSV_WICKETS);
         Assert.assertEquals("Imran Tahir", Data);
     }
+    @Test
+    public void Best_Batting_Bowling_Avg() {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String Data = iplAnalyser.Best_Batting_Bowling_Avg(IPL_CSV_WICKETS,IPL_CSV);
+        Assert.assertEquals("Imran Tahir", Data);
+    }
+
 }
