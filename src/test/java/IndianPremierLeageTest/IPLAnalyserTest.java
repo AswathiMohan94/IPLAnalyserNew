@@ -146,5 +146,15 @@ public class IPLAnalyserTest {
 
             e.printStackTrace();
         }
+    }  @Test
+    public void BestStrikingRates_4w_Bowlers()  {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        //  iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
+        String Data = iplAnalyser.BestStrikingRates_5w(IPL_CSV_WICKETS);
+        System.out.println(Data);
+
+       // IPLWktsCSV[] iplCSV = new Gson().fromJson(Data, IPLWktsCSV[].class);
+        Assert.assertEquals("Ben Cutting", Data);
     }
+
 }

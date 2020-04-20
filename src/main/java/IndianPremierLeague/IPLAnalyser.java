@@ -1,8 +1,9 @@
 package IndianPremierLeague;
 
 import com.google.gson.Gson;
-import java.io.IOException;
-import java.io.Reader;
+import com.opencsv.CSVReader;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -184,6 +185,7 @@ public class IPLAnalyser {
         }
         return sortedByValue;
     }
+
     public String getMaxBowling_Avg() throws IPLAnalyserException {
         if (IPLWktMap == null || IPLWktMap.size() == 0)
             throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
@@ -206,6 +208,7 @@ public class IPLAnalyser {
         }
         return sortedByBowlingValue;
     }
+
     public String getStrikingRates_bowlers() throws IPLAnalyserException {
         if (IPLWktMap == null || IPLWktMap.size() == 0)
             throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
@@ -228,10 +231,11 @@ public class IPLAnalyser {
         }
         return sortedByBowlingValue;
     }
+
     public String BestEconomyRates_Bowlers() throws IPLAnalyserException {
         if (IPLWktMap == null || IPLWktMap.size() == 0)
             throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
-        Comparator<Map.Entry<String, IPLWktsDAO>> EconComparator = Comparator.comparing(Econ-> Econ.getValue().Econ);
+        Comparator<Map.Entry<String, IPLWktsDAO>> EconComparator = Comparator.comparing(Econ -> Econ.getValue().Econ);
         LinkedHashMap<String, IPLWktsDAO> sortedByBowlingValue = this.SortEconomyRates_Bowlers(EconComparator);
         ArrayList<IPLWktsDAO> list2 = new ArrayList<>(sortedByBowlingValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
         Collections.reverse(list2);
@@ -251,5 +255,38 @@ public class IPLAnalyser {
         return sortedByBowlingValue;
     }
 
+    public static String BestStrikingRates_5w(String csvFilepath) {
+        double strikeRate = 0;
+        double fourW = 0;
+        String bowler = "";
+        List<String[]> records;
+        System.out.println("1");
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            records = csvReader.readAll();
+            System.out.println("2");
+            for (String[] record : records) {
+                System.out.println("3");
+                Double individualStrikeRate = Double.parseDouble(record[10]);
+                System.out.println("4");
+                Double individualfourW = Double.parseDouble(record[11]);
+                System.out.println(5);
+                if (fourW <= individualStrikeRate) {
+                    if (strikeRate < individualfourW) {
+                        strikeRate = individualStrikeRate;
+                        fourW = individualfourW;
+                        bowler = record[1];
 
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            return bowler;
+        }
+
+    }
 }

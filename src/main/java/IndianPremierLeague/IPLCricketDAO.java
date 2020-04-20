@@ -41,6 +41,6 @@ public class IPLCricketDAO {
         this.Econ = iplWktsCSV.Econ;
 
     }
-    public IPLCricketDAO(String PLAYER, int Runs, double SR, double Avg, int fours, int six, int wkts, int fourWkts, int fiveWkts) {
+    public IPLCricketDAO(String PLAYER, int Runs, double SR, double Avg, int fours, int six, int wkts, int fourWkts, int fiveWkts,double Econ) {
     }
 }
