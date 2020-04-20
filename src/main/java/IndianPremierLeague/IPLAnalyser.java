@@ -401,4 +401,47 @@ public class IPLAnalyser {
             }
 
         }
+
+    public static String Best_Runs_wickets(String csvFilepath, String csvFilepath1) {
+        double runs = 0;
+        double wickets = 0;
+        String player = "";
+        List<String[]> battingAvg;
+        List<String[]> bowlingAvg;
+        int count = 0;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            battingAvg = csvReader.readAll();
+            BufferedReader bufferedReader1 = new BufferedReader(new FileReader(csvFilepath1));
+            CSVReader csvReader1 = new CSVReader(bufferedReader1);
+            bowlingAvg = csvReader1.readAll();
+
+            if (count > 0) {
+                for (String[] record1 : bowlingAvg) {
+                    for (String[] record : battingAvg) {
+
+                        System.out.println("1");
+
+                        Double individualruns = Double.parseDouble(record[7]);
+                        Double individualwickets = Double.parseDouble(record1[8]);
+                        if (wickets <= individualruns){
+                            if (runs < individualruns) {
+                                runs = individualruns;
+                                wickets = individualwickets;
+                                player = record[1];
+
+                            }
+                        }
+                    }
+                }count++;
+            }
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        } catch(IOException e){
+            e.printStackTrace();
+        } finally{
+            return player;
+        }
+
     }
+}
