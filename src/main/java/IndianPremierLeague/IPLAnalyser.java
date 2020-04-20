@@ -28,7 +28,7 @@ public class IPLAnalyser {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IPLdataCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IPLdataCSV.class);
-            int count=0;
+            int count = 0;
             while (csvFileIterator.hasNext()) {
                 IPLdataDAO ipl = new IPLdataDAO(csvFileIterator.next());
                 this.IPLdataMap.put(ipl.PLAYER, ipl);
@@ -49,7 +49,7 @@ public class IPLAnalyser {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IPLWktsCSV> csvWktFileIterator = csvBuilder.getCSVFileIterator(reader, IPLWktsCSV.class);
-            int count=0;
+            int count = 0;
             while (csvWktFileIterator.hasNext()) {
                 IPLWktsDAO Wkts = new IPLWktsDAO(csvWktFileIterator.next());
                 this.IPLWktMap.put(Wkts.PLAYER, Wkts);
@@ -260,12 +260,12 @@ public class IPLAnalyser {
         double fourW = 0;
         String bowler = "";
         List<String[]> records;
-        int count=0;
+        int count = 0;
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
             CSVReader csvReader = new CSVReader(bufferedReader);
             records = csvReader.readAll();
-                for (String[] record : records) {
-                    if(count>0) {
+            for (String[] record : records) {
+                if (count > 0) {
                     Double individualStrikeRate = Double.parseDouble(record[10]);
                     Double individualfourW = Double.parseDouble(record[11]);
 
@@ -276,7 +276,8 @@ public class IPLAnalyser {
                             bowler = record[1];
                         }
                     }
-                }count++;
+                }
+                count++;
             }
 
         } catch (FileNotFoundException e) {
@@ -294,25 +295,26 @@ public class IPLAnalyser {
         double strikeRate = 0;
         String bowler = "";
         List<String[]> records;
-        int count=0;
+        int count = 0;
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
             CSVReader csvReader = new CSVReader(bufferedReader);
             records = csvReader.readAll();
             for (String[] record : records) {
-               if(count>0){
-                   Double individualStrikeRate = Double.parseDouble(record[10]);
-                   Double individualAverage = Double.parseDouble(record[8]);
+                if (count > 0) {
+                    Double individualStrikeRate = Double.parseDouble(record[10]);
+                    Double individualAverage = Double.parseDouble(record[8]);
 
-                   if (strikeRate <= individualAverage) {
-                       if (average < individualAverage) {
-                           average = individualAverage;
-                           strikeRate = individualStrikeRate;
-                           bowler = record[1];
-                       }
+                    if (strikeRate <= individualAverage) {
+                        if (average < individualAverage) {
+                            average = individualAverage;
+                            strikeRate = individualStrikeRate;
+                            bowler = record[1];
+                        }
 
-                   }
+                    }
 
-               }count++;
+                }
+                count++;
             }
 
         } catch (IOException e) {
@@ -320,5 +322,40 @@ public class IPLAnalyser {
         } finally {
             return bowler;
         }
+    }
+
+    public static String Wickets_BestAvg(String csvFilepath) {
+        double wicket = 0;
+        double average = 0;
+        String bowler = "";
+        List<String[]> records;
+        int count = 0;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            records = csvReader.readAll();
+            for (String[] record : records) {
+                if (count > 0) {
+                    Double individualWicket = Double.parseDouble(record[6]);
+                    Double individualAverage = Double.parseDouble(record[8]);
+
+                    if (average <= individualWicket) {
+                        if (wicket < individualWicket) {
+                            wicket = individualWicket;
+                            average = individualAverage;
+                            bowler = record[1];
+                        }
+                    }
+                }
+                count++;
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return bowler;
+        }
+
     }
 }

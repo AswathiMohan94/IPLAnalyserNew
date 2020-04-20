@@ -148,16 +148,19 @@ public class IPLAnalyserTest {
     }  @Test
     public void BestStrikingRates_4w_Bowlers()  {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
-        //  iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
         String Data = iplAnalyser.BestStrikingRates_5w(IPL_CSV_WICKETS);
         Assert.assertEquals("Imran Tahir", Data);
     }
     @Test
     public void BestAverages_with_StrikingRates_Bowlers()  {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
-        //  iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
         String Data = iplAnalyser.BowlingAverages_StrikingRates(IPL_CSV_WICKETS);
         Assert.assertEquals("Krishnappa Gowtham", Data);
     }
-
+    @Test
+    public void Wickets_BestAvg_Bowlers()  {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String Data = iplAnalyser.Wickets_BestAvg(IPL_CSV_WICKETS);
+        Assert.assertEquals("Imran Tahir", Data);
+    }
 }
