@@ -196,7 +196,6 @@ public class IPLAnalyser {
         return sortedStateCodeJson;
     }
 
-
     private <E extends IPLWktsDAO> LinkedHashMap<String, IPLWktsDAO> SortMaxAvg(Comparator AvgComparator) {
         Set<Map.Entry<String, IPLWktsDAO>> entries = IPLWktMap.entrySet();
         List<Map.Entry<String, IPLWktsDAO>> listOfEntries = new ArrayList<>(entries);
@@ -207,5 +206,28 @@ public class IPLAnalyser {
         }
         return sortedByBowlingValue;
     }
+    public String getStrikingRates_bowlers() throws IPLAnalyserException {
+        if (IPLWktMap == null || IPLWktMap.size() == 0)
+            throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
+        Comparator<Map.Entry<String, IPLWktsDAO>> SRComparator = Comparator.comparing(SR -> SR.getValue().SR);
+        LinkedHashMap<String, IPLWktsDAO> sortedByBowlingValue = this.SortStrikeRates_Bowlers(SRComparator);
+        ArrayList<IPLWktsDAO> list2 = new ArrayList<>(sortedByBowlingValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
+        Collections.reverse(list2);
+        String sortedStateCodeJson = new Gson().toJson(list2);
+        System.out.println("1" + sortedStateCodeJson);
+        return sortedStateCodeJson;
+    }
+
+    private <E extends IPLWktsDAO> LinkedHashMap<String, IPLWktsDAO> SortStrikeRates_Bowlers(Comparator SRComparator) {
+        Set<Map.Entry<String, IPLWktsDAO>> entries = IPLWktMap.entrySet();
+        List<Map.Entry<String, IPLWktsDAO>> listOfEntries = new ArrayList<>(entries);
+        Collections.sort(listOfEntries, SRComparator);
+        LinkedHashMap<String, IPLWktsDAO> sortedByBowlingValue = new LinkedHashMap<>(listOfEntries.size());
+        for (Map.Entry<String, IPLWktsDAO> entry : listOfEntries) {
+            sortedByBowlingValue.put(entry.getKey(), entry.getValue());
+        }
+        return sortedByBowlingValue;
+    }
+
 
 }
