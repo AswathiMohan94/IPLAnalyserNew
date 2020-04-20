@@ -2,6 +2,9 @@ package IndianPremierLeague;
 
 
 public class CSVBuilderException extends Exception {
+    public CSVBuilderException(String message, IPLAnalyserException.ExceptionType unableToParse) {
+    }
+
 
     // public ExceptionType;
 

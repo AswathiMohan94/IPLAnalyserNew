@@ -8,6 +8,8 @@ import org.junit.Test;
 public class IPLAnalyserTest {
 
     private static final String IPL_CSV = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
+    private static final String IPL_CSV_WICKETS = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
+
 
     @Test
     public void TopBattingAveragesOfCricketers()  {
@@ -95,6 +97,21 @@ public class IPLAnalyserTest {
 
             IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
             Assert.assertEquals("David Warner", iplCSV[0].PLAYER);
+        } catch (IPLAnalyserException e) {
+
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void Bowling_Best_Avg()  {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
+            String sortedData = iplAnalyser.getMaxBowling_Avg();
+            System.out.println(sortedData);
+
+            IPLWktsCSV[] iplCSV = new Gson().fromJson(sortedData, IPLWktsCSV[].class);
+            Assert.assertEquals("Krishnappa Gowtham", iplCSV[0].PLAYER);
         } catch (IPLAnalyserException e) {
 
             e.printStackTrace();

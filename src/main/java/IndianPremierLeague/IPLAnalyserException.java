@@ -9,7 +9,8 @@ public class IPLAnalyserException extends Throwable {
 
 
     public enum ExceptionType {
-        FILE_PROBLEM;
+        FILE_PROBLEM,
+        TYPE_EXTENSION_WRONG,WRONG_FILE_TYPE_OR_INVALID_FILE,UNABLE_TO_PARSE;
     }
 
 //    ExceptionType type;
