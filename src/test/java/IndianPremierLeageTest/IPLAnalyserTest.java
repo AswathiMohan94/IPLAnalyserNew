@@ -61,43 +61,23 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
-    @Test
-    public void BestAvg_GreatStrikigRates() {
-        try {
-            IPLAnalyser iplAnalyser = new IPLAnalyser();
-            iplAnalyser.loadIPLdata(IPL_CSV);
-            String sortedData = iplAnalyser.getStrikingRates();
-            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
-            Assert.assertEquals("Ishant Sharma", iplCSV[0].PLAYER);
-        } catch (IPLAnalyserException e) {
-            e.printStackTrace();
-        }
+  @Test
+    public void Max_6s_4s()  {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String Data = iplAnalyser.Max_six_four(IPL_CSV);
+        Assert.assertEquals("David Warner", Data);
     }
     @Test
-    public void UC5_BestAvg_GreatStrikigRates() {
-        try {
-            IPLAnalyser iplAnalyser = new IPLAnalyser();
-            iplAnalyser.loadIPLdata(IPL_CSV);
-            String sortedData = iplAnalyser.getAverageWiseSortedData();
-            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
-            Assert.assertEquals("MS Dhoni", iplCSV[0].PLAYER);
-        } catch (IPLAnalyserException e) {
-            e.printStackTrace();
-        }
+    public void BestAvg_StrikeRate()  {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String Data = iplAnalyser.BestAvg_StrikingRate(IPL_CSV);
+        Assert.assertEquals("David Warner", Data);
     }
+
     @Test
-    public void MaxRunsOfCricketers()  {
-        try {
-            IPLAnalyser iplAnalyser = new IPLAnalyser();
-            iplAnalyser.loadIPLdata(IPL_CSV);
-            String sortedData = iplAnalyser.getMaxRuns();
-            System.out.println(sortedData);
-
-            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
-            Assert.assertEquals("David Warner", iplCSV[0].PLAYER);
-        } catch (IPLAnalyserException e) {
-
-            e.printStackTrace();
-        }
+    public void Max_Runs_BestAvg()  {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String Data = iplAnalyser.Max_Runs_BestAvg(IPL_CSV);
+        Assert.assertEquals("David Warner", Data);
     }
 }
