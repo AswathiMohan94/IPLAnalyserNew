@@ -459,39 +459,41 @@ public class IPLAnalyser {
 
     }
 
-    public static String Best_Batting_Bowling_Avg(String csvFilepath, String csvFilepath1) {
+  public static String Best_Batting_Bowling_Avg(String csvFilepath, String csvFilepath1) {
         double batting = 0;
         double bowling = 0;
         String player = "";
         List<String[]> battingAvg;
         List<String[]> bowlingAvg;
         int count = 0;
+        int count1 = 0;
+
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
             CSVReader csvReader = new CSVReader(bufferedReader);
             battingAvg = csvReader.readAll();
             BufferedReader bufferedReader1 = new BufferedReader(new FileReader(csvFilepath1));
             CSVReader csvReader1 = new CSVReader(bufferedReader1);
             bowlingAvg = csvReader1.readAll();
-            if (count > 0) {
-                for (String[] record1 : bowlingAvg) {
+
+               for (String[] record1 : bowlingAvg) {
+                    if (count1> 0) {
                     for (String[] record : battingAvg) {
+                        if (count > 0) {
+                            Double individualbatting = Double.parseDouble(record[7]);
+                            Double individualbowling = Double.parseDouble(record1[8]);
 
-                        System.out.println("1");
+                            if (bowling <= individualbatting) {
+                                if (batting < individualbowling) {
+                                    batting = individualbatting;
+                                    bowling = individualbowling;
+                                    player = record[1];
 
-                        Double individualbatting = Double.parseDouble(record[7]);
-                        Double individualbowling = Double.parseDouble(record1[8]);
-                        if (bowling <= individualbatting) {
-                            if (batting < individualbatting) {
-                                batting = individualbatting;
-                                bowling = individualbowling;
-                                player = record[1];
-
-
+                                }
                             }
                         }
+                        count++;
                     }
-                }
-                count++;
+                }count1++;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -503,40 +505,48 @@ public class IPLAnalyser {
 
     }
 
-    public static String Best_Runs_wickets(String csvFilepath, String csvFilepath1) {
-        double runs = 0;
-        double wickets = 0;
+    public static String Best_Runs_wickets(String csvFilepath1, String csvFilepath) {
+        int runs = 0;
+        int wicket = 0;
         String player = "";
-        List<String[]> battingAvg;
-        List<String[]> bowlingAvg;
+        List<String[]> batting;
+        List<String[]> bowling;
         int count = 0;
+        int count1 = 0;
+
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
             CSVReader csvReader = new CSVReader(bufferedReader);
-            battingAvg = csvReader.readAll();
+            batting = csvReader.readAll();
             BufferedReader bufferedReader1 = new BufferedReader(new FileReader(csvFilepath1));
             CSVReader csvReader1 = new CSVReader(bufferedReader1);
-            bowlingAvg = csvReader1.readAll();
+            bowling = csvReader1.readAll();
 
-            if (count > 0) {
-                for (String[] record1 : bowlingAvg) {
-                    for (String[] record : battingAvg) {
-                        Double individualruns = Double.parseDouble(record[7]);
-                        Double individualwickets = Double.parseDouble(record1[8]);
-                        if (wickets <= individualruns){
-                            if (runs < individualruns) {
-                                runs = individualruns;
-                                wickets = individualwickets;
-                                player = record[1];
+            for (String[] record1 : bowling) {
+                if (count1> 0) {
+                    for (String[] record : batting) {
+                        if (count > 0) {
+
+                            Integer individualruns = Integer.parseInt(record[5]);
+                            Integer individualwicket = Integer.parseInt(record1[6]);
+
+                            if (wicket <= individualruns) {
+                                if (runs < individualwicket) {
+                                    runs = individualruns;
+                                    wicket = individualwicket;
+                                    player = record[1];
+
+                                }
                             }
                         }
+                        count++;
                     }
-                }count++;
+                }count1++;
             }
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             return player;
         }
 
