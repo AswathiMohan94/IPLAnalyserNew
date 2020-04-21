@@ -135,27 +135,71 @@ public class IPLAnalyser {
         return sortedByValue;
     }
 
-    public String getMaxRuns() throws IPLAnalyserException {
-        if (IPLdataMap == null || IPLdataMap.size() == 0)
-            throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
-        Comparator<Map.Entry<String, IPLdataDAO>> RunComparator = Comparator.comparing(six -> six.getValue().Runs);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = this.SortMaxRuns(RunComparator);
-        ArrayList<IPLdataDAO> list1 = new ArrayList<>(sortedByValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
-        Collections.reverse(list1);
-        String sortedStateCodeJson = new Gson().toJson(list1);
-        System.out.println("1" + sortedStateCodeJson);
-        return sortedStateCodeJson;
-    }
+    public static String Max_six_four(String csvFilepath) {
+        double six = 0;
+        double four = 0;
+        String batsman = "";
+        List<String[]> records;
+        int count = 0;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            records = csvReader.readAll();
+            for (String[] record : records) {
+                if (count > 0) {
+                    Double individualSix = Double.parseDouble(record[13]);
+                    Double individualfour = Double.parseDouble(record[12]);
 
+                    if (four <= individualSix) {
+                        if (six < individualSix) {
+                            six = individualSix;
+                            four = individualfour;
+                            batsman = record[1];
+                        }
+                    }
+                }
+                count++;
+            }
 
-    private <E extends IPLdataDAO> LinkedHashMap<String, IPLdataDAO> SortMaxRuns(Comparator RunComparator) {
-        Set<Map.Entry<String, IPLdataDAO>> entries = IPLdataMap.entrySet();
-        List<Map.Entry<String, IPLdataDAO>> listOfEntries = new ArrayList<>(entries);
-        Collections.sort(listOfEntries, RunComparator);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = new LinkedHashMap<>(listOfEntries.size());
-        for (Map.Entry<String, IPLdataDAO> entry : listOfEntries) {
-            sortedByValue.put(entry.getKey(), entry.getValue());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return batsman;
         }
-        return sortedByValue;
+
+    }
+    public static String Max_Runs_BestAvg(String csvFilepath) {
+        double runs = 0;
+        double avg = 0;
+        String batsman = "";
+        List<String[]> records;
+        int count = 0;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            records = csvReader.readAll();
+            for (String[] record : records) {
+                if (count > 0) {
+                    Double individualRun = Double.parseDouble(record[5]);
+                    Double individualAvg = Double.parseDouble(record[7]);
+
+                    if (runs <= individualAvg) {
+                        if (avg < individualAvg) {
+                            avg = individualAvg;
+                            runs = individualRun;
+                            batsman = record[1];
+                        }
+                    }
+                }
+                count++;
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return batsman;
+        }
     }
 }
