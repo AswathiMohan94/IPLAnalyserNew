@@ -53,6 +53,12 @@ public class IPLAnalyserTest {
         Assert.assertEquals("David Warner", Data);
     }
     @Test
+    public void BestStrikeRate_with_6s()  {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String Data = iplAnalyser.BestStrikeRate_Six(IPL_CSV);
+        Assert.assertEquals("Ishant Sharma", Data);
+    }
+    @Test
     public void BestAvg_StrikeRate()  {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
         String Data = iplAnalyser.BestAvg_StrikingRate(IPL_CSV);
