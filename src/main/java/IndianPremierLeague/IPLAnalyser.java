@@ -114,17 +114,41 @@ public class IPLAnalyser {
         return sortedByValue;
     }
 
-    public String getMaxSix() throws IPLAnalyserException {
-        if (IPLdataMap == null || IPLdataMap.size() == 0)
-            throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
-        Comparator<Map.Entry<String, IPLdataDAO>> sixComparator = Comparator.comparing(six -> six.getValue().six);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = this.SortMaxSix(sixComparator);
-        ArrayList<IPLdataDAO> list1 = new ArrayList<>(sortedByValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
-        Collections.reverse(list1);
-        String sortedStateCodeJson = new Gson().toJson(list1);
-        System.out.println("1" + sortedStateCodeJson);
-        return sortedStateCodeJson;
+    public static String Max_six_four(String csvFilepath) {
+        double six = 0;
+        double four = 0;
+        String batsman = "";
+        List<String[]> records;
+        int count = 0;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            records = csvReader.readAll();
+            for (String[] record : records) {
+                if (count > 0) {
+                    Double individualSix = Double.parseDouble(record[13]);
+                    Double individualfour = Double.parseDouble(record[12]);
+
+                    if (four <= individualSix) {
+                        if (six < individualSix) {
+                            six = individualSix;
+                            four = individualfour;
+                            batsman = record[1];
+                        }
+                    }
+                }
+                count++;
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return batsman;
+        }
+
     }
+
 
 
     private <E extends IPLdataDAO> LinkedHashMap<String, IPLdataDAO> SortMaxSix(Comparator sixComparator) {
