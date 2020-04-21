@@ -486,6 +486,7 @@ public class IPLAnalyser {
                                 bowling = individualbowling;
                                 player = record[1];
 
+
                             }
                         }
                     }
