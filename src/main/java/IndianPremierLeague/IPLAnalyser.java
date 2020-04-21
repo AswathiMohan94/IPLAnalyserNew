@@ -148,71 +148,10 @@ public class IPLAnalyser {
         }
 
     }
-
-
-    private <E extends IPLdataDAO> LinkedHashMap<String, IPLdataDAO> SortMaxSix(Comparator sixComparator) {
-        Set<Map.Entry<String, IPLdataDAO>> entries = IPLdataMap.entrySet();
-        List<Map.Entry<String, IPLdataDAO>> listOfEntries = new ArrayList<>(entries);
-        Collections.sort(listOfEntries, sixComparator);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = new LinkedHashMap<>(listOfEntries.size());
-        for (Map.Entry<String, IPLdataDAO> entry : listOfEntries) {
-            sortedByValue.put(entry.getKey(), entry.getValue());
-        }
-        return sortedByValue;
-    }
-
-    public String getMaxfour() throws IPLAnalyserException {
-        if (IPLdataMap == null || IPLdataMap.size() == 0)
-            throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
-        Comparator<Map.Entry<String, IPLdataDAO>> fourComparator = Comparator.comparing(four -> four.getValue().four);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = this.SortMaxfour(fourComparator);
-        ArrayList<IPLdataDAO> list1 = new ArrayList<>(sortedByValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
-        Collections.reverse(list1);
-        String sortedStateCodeJson = new Gson().toJson(list1);
-        System.out.println("1" + sortedStateCodeJson);
-        return sortedStateCodeJson;
-    }
-
-
-    private <E extends IPLdataDAO> LinkedHashMap<String, IPLdataDAO> SortMaxfour(Comparator fourComparator) {
-        Set<Map.Entry<String, IPLdataDAO>> entries = IPLdataMap.entrySet();
-        List<Map.Entry<String, IPLdataDAO>> listOfEntries = new ArrayList<>(entries);
-        Collections.sort(listOfEntries, fourComparator);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = new LinkedHashMap<>(listOfEntries.size());
-        for (Map.Entry<String, IPLdataDAO> entry : listOfEntries) {
-            sortedByValue.put(entry.getKey(), entry.getValue());
-        }
-        return sortedByValue;
-    }
-
-    public String getMaxRuns() throws IPLAnalyserException {
-        if (IPLdataMap == null || IPLdataMap.size() == 0)
-            throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
-        Comparator<Map.Entry<String, IPLdataDAO>> RunComparator = Comparator.comparing(six -> six.getValue().Runs);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = this.SortMaxRuns(RunComparator);
-        ArrayList<IPLdataDAO> list1 = new ArrayList<>(sortedByValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
-        Collections.reverse(list1);
-        String sortedStateCodeJson = new Gson().toJson(list1);
-        System.out.println("1" + sortedStateCodeJson);
-        return sortedStateCodeJson;
-    }
-
-
-
-    private <E extends IPLdataDAO> LinkedHashMap<String, IPLdataDAO> SortMaxRuns(Comparator RunComparator) {
-        Set<Map.Entry<String, IPLdataDAO>> entries = IPLdataMap.entrySet();
-        List<Map.Entry<String, IPLdataDAO>> listOfEntries = new ArrayList<>(entries);
-        Collections.sort(listOfEntries, RunComparator);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = new LinkedHashMap<>(listOfEntries.size());
-        for (Map.Entry<String, IPLdataDAO> entry : listOfEntries) {
-            sortedByValue.put(entry.getKey(), entry.getValue());
-        }
-        return sortedByValue;
-    }
-    public static String BestAvg_StrikingRate(String csvFilepath) {
-        double strike = 0;
-        double average = 0;
-        String player = "";
+    public static String Max_Runs_BestAvg(String csvFilepath) {
+        double runs = 0;
+        double avg = 0;
+        String batsman = "";
         List<String[]> records;
         int count = 0;
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
@@ -220,14 +159,14 @@ public class IPLAnalyser {
             records = csvReader.readAll();
             for (String[] record : records) {
                 if (count > 0) {
-                    Double individualstrikeRate = Double.parseDouble(record[9]);
-                    Double individualAverage = Double.parseDouble(record[7]);
+                    Double individualRun = Double.parseDouble(record[5]);
+                    Double individualAvg = Double.parseDouble(record[7]);
 
-                    if (strike <= individualAverage) {
-                        if (average < individualAverage) {
-                            average = individualAverage;
-                            strike = individualstrikeRate;
-                            player = record[1];
+                    if (runs <= individualAvg) {
+                        if (avg < individualAvg) {
+                            avg = individualAvg;
+                            runs = individualRun;
+                            batsman = record[1];
                         }
                     }
                 }
@@ -239,34 +178,69 @@ public class IPLAnalyser {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            return player;
+            return batsman;
+        }
+    }
+
+        public static String BestAvg_StrikingRate (String csvFilepath){
+            double strike = 0;
+            double average = 0;
+            String player = "";
+            List<String[]> records;
+            int count = 0;
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+                CSVReader csvReader = new CSVReader(bufferedReader);
+                records = csvReader.readAll();
+                for (String[] record : records) {
+                    if (count > 0) {
+                        Double individualstrikeRate = Double.parseDouble(record[9]);
+                        Double individualAverage = Double.parseDouble(record[7]);
+
+                        if (strike <= individualAverage) {
+                            if (average < individualAverage) {
+                                average = individualAverage;
+                                strike = individualstrikeRate;
+                                player = record[1];
+                            }
+                        }
+                    }
+                    count++;
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                return player;
+            }
+
         }
 
-    }
 
-
-    public String getMaxBowling_Avg() throws IPLAnalyserException {
-        if (IPLWktMap == null || IPLWktMap.size() == 0)
-            throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
-        Comparator<Map.Entry<String, IPLWktsDAO>> AvgComparator = Comparator.comparing(Avg -> Avg.getValue().Avg);
-        LinkedHashMap<String, IPLWktsDAO> sortedByBowlingValue = this.SortMaxAvg(AvgComparator);
-        ArrayList<IPLWktsDAO> list2 = new ArrayList<>(sortedByBowlingValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
-        Collections.reverse(list2);
-        String sortedStateCodeJson = new Gson().toJson(list2);
-        System.out.println("1" + sortedStateCodeJson);
-        return sortedStateCodeJson;
-    }
-
-    private <E extends IPLWktsDAO> LinkedHashMap<String, IPLWktsDAO> SortMaxAvg(Comparator AvgComparator) {
-        Set<Map.Entry<String, IPLWktsDAO>> entries = IPLWktMap.entrySet();
-        List<Map.Entry<String, IPLWktsDAO>> listOfEntries = new ArrayList<>(entries);
-        Collections.sort(listOfEntries, AvgComparator);
-        LinkedHashMap<String, IPLWktsDAO> sortedByBowlingValue = new LinkedHashMap<>(listOfEntries.size());
-        for (Map.Entry<String, IPLWktsDAO> entry : listOfEntries) {
-            sortedByBowlingValue.put(entry.getKey(), entry.getValue());
+        public String getMaxBowling_Avg () throws IPLAnalyserException {
+            if (IPLWktMap == null || IPLWktMap.size() == 0)
+                throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
+            Comparator<Map.Entry<String, IPLWktsDAO>> AvgComparator = Comparator.comparing(Avg -> Avg.getValue().Avg);
+            LinkedHashMap<String, IPLWktsDAO> sortedByBowlingValue = this.SortMaxAvg(AvgComparator);
+            ArrayList<IPLWktsDAO> list2 = new ArrayList<>(sortedByBowlingValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
+            Collections.reverse(list2);
+            String sortedStateCodeJson = new Gson().toJson(list2);
+            System.out.println("1" + sortedStateCodeJson);
+            return sortedStateCodeJson;
         }
-        return sortedByBowlingValue;
-    }
+
+        private <E extends IPLWktsDAO > LinkedHashMap < String, IPLWktsDAO > SortMaxAvg(Comparator AvgComparator) {
+            Set<Map.Entry<String, IPLWktsDAO>> entries = IPLWktMap.entrySet();
+            List<Map.Entry<String, IPLWktsDAO>> listOfEntries = new ArrayList<>(entries);
+            Collections.sort(listOfEntries, AvgComparator);
+            LinkedHashMap<String, IPLWktsDAO> sortedByBowlingValue = new LinkedHashMap<>(listOfEntries.size());
+            for (Map.Entry<String, IPLWktsDAO> entry : listOfEntries) {
+                sortedByBowlingValue.put(entry.getKey(), entry.getValue());
+            }
+            return sortedByBowlingValue;
+        }
+
 
     public String getStrikingRates_bowlers() throws IPLAnalyserException {
         if (IPLWktMap == null || IPLWktMap.size() == 0)
@@ -463,7 +437,6 @@ public class IPLAnalyser {
 
     }
 
-
     public static String Best_Runs_wickets(String csvFilepath, String csvFilepath1) {
         double runs = 0;
         double wickets = 0;
@@ -481,9 +454,6 @@ public class IPLAnalyser {
             if (count > 0) {
                 for (String[] record1 : bowlingAvg) {
                     for (String[] record : battingAvg) {
-
-                        System.out.println("1");
-
                         Double individualruns = Double.parseDouble(record[7]);
                         Double individualwickets = Double.parseDouble(record1[8]);
                         if (wickets <= individualruns){
@@ -491,7 +461,6 @@ public class IPLAnalyser {
                                 runs = individualruns;
                                 wickets = individualwickets;
                                 player = record[1];
-
                             }
                         }
                     }
