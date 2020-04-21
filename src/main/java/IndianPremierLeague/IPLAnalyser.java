@@ -472,7 +472,6 @@ public class IPLAnalyser {
             BufferedReader bufferedReader1 = new BufferedReader(new FileReader(csvFilepath1));
             CSVReader csvReader1 = new CSVReader(bufferedReader1);
             bowlingAvg = csvReader1.readAll();
-
             if (count > 0) {
                 for (String[] record1 : bowlingAvg) {
                     for (String[] record : battingAvg) {
