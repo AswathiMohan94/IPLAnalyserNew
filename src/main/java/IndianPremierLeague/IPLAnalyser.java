@@ -88,7 +88,7 @@ public class IPLAnalyser {
         return sortedByValue;
     }
 
-    public String getMaxSix() throws IPLAnalyserException {
+   /* public String getMaxSix() throws IPLAnalyserException {
         if (IPLdataMap == null || IPLdataMap.size() == 0)
             throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
         Comparator<Map.Entry<String, IPLdataDAO>> sixComparator = Comparator.comparing(six -> six.getValue().six);
@@ -134,7 +134,43 @@ public class IPLAnalyser {
             sortedByValue.put(entry.getKey(), entry.getValue());
         }
         return sortedByValue;
+      
+    }*/
+    public static String Max_six_four(String csvFilepath) {
+        double six = 0;
+        double four = 0;
+        String batsman = "";
+        List<String[]> records;
+        int count = 0;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            records = csvReader.readAll();
+            for (String[] record : records) {
+                if (count > 0) {
+                    Double individualSix = Double.parseDouble(record[13]);
+                    Double individualfour = Double.parseDouble(record[12]);
+
+                    if (four <= individualSix) {
+                        if (six < individualSix) {
+                            six = individualSix;
+                            four = individualfour;
+                            batsman = record[1];
+                        }
+                    }
+                }
+                count++;
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return batsman;
+        }
+
     }
+
      public static String BestAvg_StrikingRate(String csvFilepath) {
         double strike = 0;
         double average = 0;
