@@ -87,55 +87,6 @@ public class IPLAnalyser {
         }
         return sortedByValue;
     }
-
-   /* public String getMaxSix() throws IPLAnalyserException {
-        if (IPLdataMap == null || IPLdataMap.size() == 0)
-            throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
-        Comparator<Map.Entry<String, IPLdataDAO>> sixComparator = Comparator.comparing(six -> six.getValue().six);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = this.SortMaxSix(sixComparator);
-        ArrayList<IPLdataDAO> list1 = new ArrayList<>(sortedByValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
-        Collections.reverse(list1);
-        String sortedStateCodeJson = new Gson().toJson(list1);
-        System.out.println("1" + sortedStateCodeJson);
-        return sortedStateCodeJson;
-    }
-
-
-    private <E extends IPLdataDAO> LinkedHashMap<String, IPLdataDAO> SortMaxSix(Comparator sixComparator) {
-        Set<Map.Entry<String, IPLdataDAO>> entries = IPLdataMap.entrySet();
-        List<Map.Entry<String, IPLdataDAO>> listOfEntries = new ArrayList<>(entries);
-        Collections.sort(listOfEntries, sixComparator);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = new LinkedHashMap<>(listOfEntries.size());
-        for (Map.Entry<String, IPLdataDAO> entry : listOfEntries) {
-            sortedByValue.put(entry.getKey(), entry.getValue());
-        }
-        return sortedByValue;
-    }
-
-    public String getMaxfour() throws IPLAnalyserException {
-        if (IPLdataMap == null || IPLdataMap.size() == 0)
-            throw new IPLAnalyserException("No Census Data", FILE_PROBLEM);
-        Comparator<Map.Entry<String, IPLdataDAO>> fourComparator = Comparator.comparing(four -> four.getValue().four);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = this.SortMaxfour(fourComparator);
-        ArrayList<IPLdataDAO> list1 = new ArrayList<>(sortedByValue.values()); //for getting the state which having the hightest area, the order need to be reversed into descending order
-        Collections.reverse(list1);
-        String sortedStateCodeJson = new Gson().toJson(list1);
-        System.out.println("1" + sortedStateCodeJson);
-        return sortedStateCodeJson;
-    }
-
-
-    private <E extends IPLdataDAO> LinkedHashMap<String, IPLdataDAO> SortMaxfour(Comparator fourComparator) {
-        Set<Map.Entry<String, IPLdataDAO>> entries = IPLdataMap.entrySet();
-        List<Map.Entry<String, IPLdataDAO>> listOfEntries = new ArrayList<>(entries);
-        Collections.sort(listOfEntries, fourComparator);
-        LinkedHashMap<String, IPLdataDAO> sortedByValue = new LinkedHashMap<>(listOfEntries.size());
-        for (Map.Entry<String, IPLdataDAO> entry : listOfEntries) {
-            sortedByValue.put(entry.getKey(), entry.getValue());
-        }
-        return sortedByValue;
-      
-    }*/
     public static String Max_six_four(String csvFilepath) {
         double six = 0;
         double four = 0;
@@ -170,6 +121,40 @@ public class IPLAnalyser {
         }
 
     }
+public static String BestStrikeRate_Six(String csvFilepath) {
+        double six = 0;
+        double strike = 0;
+        String player = "";
+        List<String[]> records;
+        int count = 0;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            records = csvReader.readAll();
+            for (String[] record : records) {
+                if (count > 0) {
+                    Double individualsix = Double.parseDouble(record[13]);
+                    Double individualstrike = Double.parseDouble(record[9]);
+
+                    if (six <= individualstrike) {
+                        if (strike < individualstrike) {
+                            strike = individualstrike;
+                            six = individualsix;
+                            player = record[1];
+                        }
+                    }
+                }
+                count++;
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return player;
+        }
+    }
+}
 
      public static String BestAvg_StrikingRate(String csvFilepath) {
         double strike = 0;
