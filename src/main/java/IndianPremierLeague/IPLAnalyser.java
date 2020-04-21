@@ -150,7 +150,6 @@ public class IPLAnalyser {
     }
 
 
-
     private <E extends IPLdataDAO> LinkedHashMap<String, IPLdataDAO> SortMaxSix(Comparator sixComparator) {
         Set<Map.Entry<String, IPLdataDAO>> entries = IPLdataMap.entrySet();
         List<Map.Entry<String, IPLdataDAO>> listOfEntries = new ArrayList<>(entries);
@@ -199,6 +198,7 @@ public class IPLAnalyser {
     }
 
 
+
     private <E extends IPLdataDAO> LinkedHashMap<String, IPLdataDAO> SortMaxRuns(Comparator RunComparator) {
         Set<Map.Entry<String, IPLdataDAO>> entries = IPLdataMap.entrySet();
         List<Map.Entry<String, IPLdataDAO>> listOfEntries = new ArrayList<>(entries);
@@ -209,6 +209,41 @@ public class IPLAnalyser {
         }
         return sortedByValue;
     }
+    public static String BestAvg_StrikingRate(String csvFilepath) {
+        double strike = 0;
+        double average = 0;
+        String player = "";
+        List<String[]> records;
+        int count = 0;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            records = csvReader.readAll();
+            for (String[] record : records) {
+                if (count > 0) {
+                    Double individualstrikeRate = Double.parseDouble(record[9]);
+                    Double individualAverage = Double.parseDouble(record[7]);
+
+                    if (strike <= individualAverage) {
+                        if (average < individualAverage) {
+                            average = individualAverage;
+                            strike = individualstrikeRate;
+                            player = record[1];
+                        }
+                    }
+                }
+                count++;
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return player;
+        }
+
+    }
+
 
     public String getMaxBowling_Avg() throws IPLAnalyserException {
         if (IPLWktMap == null || IPLWktMap.size() == 0)
@@ -348,6 +383,7 @@ public class IPLAnalyser {
         }
     }
 
+
     public static String Wickets_BestAvg(String csvFilepath) {
         double wicket = 0;
         double average = 0;
@@ -397,34 +433,36 @@ public class IPLAnalyser {
             CSVReader csvReader1 = new CSVReader(bufferedReader1);
             bowlingAvg = csvReader1.readAll();
 
-                if (count > 0) {
-                    for (String[] record1 : bowlingAvg) {
-                        for (String[] record : battingAvg) {
+            if (count > 0) {
+                for (String[] record1 : bowlingAvg) {
+                    for (String[] record : battingAvg) {
 
-                            System.out.println("1");
+                        System.out.println("1");
 
-                            Double individualbatting = Double.parseDouble(record[7]);
-                            Double individualbowling = Double.parseDouble(record1[8]);
-                             if (bowling <= individualbatting) {
-                                if (batting < individualbatting) {
-                                    batting = individualbatting;
-                                    bowling = individualbowling;
-                                    player = record[1];
+                        Double individualbatting = Double.parseDouble(record[7]);
+                        Double individualbowling = Double.parseDouble(record1[8]);
+                        if (bowling <= individualbatting) {
+                            if (batting < individualbatting) {
+                                batting = individualbatting;
+                                bowling = individualbowling;
+                                player = record[1];
 
-                                }
                             }
                         }
-                    }count++;
-           }
-        }catch(FileNotFoundException e){
-                e.printStackTrace();
-            } catch(IOException e){
-                e.printStackTrace();
-            } finally{
-                return player;
+                    }
+                }
+                count++;
             }
-
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return player;
         }
+
+    }
+
 
     public static String Best_Runs_wickets(String csvFilepath, String csvFilepath1) {
         double runs = 0;

@@ -2,8 +2,15 @@ package IndianPremierLeageTest;
 
 import IndianPremierLeague.*;
 import com.google.gson.Gson;
+import com.opencsv.CSVReader;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
 
 public class IPLAnalyserTest {
 
@@ -40,36 +47,12 @@ public class IPLAnalyserTest {
         }
     }
     @Test
-    public void Max_6s_4s() {
+    public void BestAvg_StrikeRate()  {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
-        String Data = iplAnalyser.Max_six_four(IPL_CSV);
+        String Data = iplAnalyser.BestAvg_StrikingRate(IPL_CSV);
         Assert.assertEquals("David Warner", Data);
     }
 
-    @Test
-    public void BestAvg_GreatStrikigRates() {
-        try {
-            IPLAnalyser iplAnalyser = new IPLAnalyser();
-            iplAnalyser.loadIPLdata(IPL_CSV);
-            String sortedData = iplAnalyser.getStrikingRates();
-            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
-            Assert.assertEquals("Ishant Sharma", iplCSV[0].PLAYER);
-        } catch (IPLAnalyserException e) {
-            e.printStackTrace();
-        }
-    }
-    @Test
-    public void UC5_BestAvg_GreatStrikigRates() {
-        try {
-            IPLAnalyser iplAnalyser = new IPLAnalyser();
-            iplAnalyser.loadIPLdata(IPL_CSV);
-            String sortedData = iplAnalyser.getAverageWiseSortedData();
-            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
-            Assert.assertEquals("MS Dhoni", iplCSV[0].PLAYER);
-        } catch (IPLAnalyserException e) {
-            e.printStackTrace();
-        }
-    }
     @Test
     public void MaxRunsOfCricketers()  {
         try {
