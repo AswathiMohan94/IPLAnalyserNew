@@ -62,27 +62,10 @@ public class IPLAnalyserTest {
         }
     }
     @Test
-    public void BestAvg_GreatStrikigRates() {
-        try {
-            IPLAnalyser iplAnalyser = new IPLAnalyser();
-            iplAnalyser.loadIPLdata(IPL_CSV);
-            String sortedData = iplAnalyser.getStrikingRates();
-            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
-            Assert.assertEquals("Ishant Sharma", iplCSV[0].PLAYER);
-        } catch (IPLAnalyserException e) {
-            e.printStackTrace();
-        }
+    public void BestAvg_StrikeRate()  {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String Data = iplAnalyser.BestAvg_StrikingRate(IPL_CSV);
+        Assert.assertEquals("David Warner", Data);
     }
-    @Test
-    public void UC5_BestAvg_GreatStrikigRates() {
-        try {
-            IPLAnalyser iplAnalyser = new IPLAnalyser();
-            iplAnalyser.loadIPLdata(IPL_CSV);
-            String sortedData = iplAnalyser.getAverageWiseSortedData();
-            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
-            Assert.assertEquals("MS Dhoni", iplCSV[0].PLAYER);
-        } catch (IPLAnalyserException e) {
-            e.printStackTrace();
-        }
-    }
+      
 }
