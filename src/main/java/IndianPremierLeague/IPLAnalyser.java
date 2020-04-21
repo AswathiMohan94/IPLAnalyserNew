@@ -121,6 +121,39 @@ public class IPLAnalyser {
         }
 
     }
+    public static String BestStrikeRate_four(String csvFilepath) {
+        double four = 0;
+        double strike = 0;
+        String player = "";
+        List<String[]> records;
+        int count = 0;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            records = csvReader.readAll();
+            for (String[] record : records) {
+                if (count > 0) {
+                    Double individualfour = Double.parseDouble(record[12]);
+                    Double individualstrike = Double.parseDouble(record[9]);
+
+                    if (four <= individualstrike) {
+                        if (strike < individualstrike) {
+                            strike = individualstrike;
+                            four = individualfour;
+                            player = record[1];
+                        }
+                    }
+                }
+                count++;
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return player;
+        }
+    }
      public static String BestStrikeRate_Six(String csvFilepath) {
         double six = 0;
         double strike = 0;
