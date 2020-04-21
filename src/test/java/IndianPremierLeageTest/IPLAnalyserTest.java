@@ -37,30 +37,20 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
-    @Test
-    public void Batsman_MaxSix() {
-        try {
-            IPLAnalyser iplAnalyser = new IPLAnalyser();
-            iplAnalyser.loadIPLdata(IPL_CSV);
-            String sortedData = iplAnalyser.getMaxSix();
-            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
-            Assert.assertEquals("Andre Russell", iplCSV[0].PLAYER);
-        } catch (IPLAnalyserException e) {
-            e.printStackTrace();
-        }
+     }
+  @Test
+    public void Max_6s_4s()  {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String Data = iplAnalyser.Max_six_four(IPL_CSV);
+        Assert.assertEquals("David Warner", Data);
     }
-    @Test
-    public void Batsman_Maxfour() {
-        try {
-            IPLAnalyser iplAnalyser = new IPLAnalyser();
-            iplAnalyser.loadIPLdata(IPL_CSV);
-            String sortedData = iplAnalyser.getMaxfour();
-            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
-            Assert.assertEquals("Shikhar Dhawan", iplCSV[0].PLAYER);
-        } catch (IPLAnalyserException e) {
-            e.printStackTrace();
-        }
+   @Test
+    public void BestStrikeRate_with_6s()  {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        String Data = iplAnalyser.BestStrikeRate_Six(IPL_CSV);
+        Assert.assertEquals("Ishant Sharma", Data);
     }
+}
     @Test
     public void BestAvg_StrikeRate()  {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
