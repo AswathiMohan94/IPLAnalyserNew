@@ -1,3 +1,4 @@
+
 package IndianPremierLeague;
 
 import com.google.gson.Gson;
@@ -134,4 +135,38 @@ public class IPLAnalyser {
         }
         return sortedByValue;
     }
-}
+     public static String BestAvg_StrikingRate(String csvFilepath) {
+        double strike = 0;
+        double average = 0;
+        String player = "";
+        List<String[]> records;
+        int count = 0;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFilepath))) {
+            CSVReader csvReader = new CSVReader(bufferedReader);
+            records = csvReader.readAll();
+            for (String[] record : records) {
+                if (count > 0) {
+                    Double individualstrikeRate = Double.parseDouble(record[9]);
+                    Double individualAverage = Double.parseDouble(record[7]);
+
+                    if (strike <= individualAverage) {
+                        if (average < individualAverage) {
+                            average = individualAverage;
+                            strike = individualstrikeRate;
+                            player = record[1];
+                        }
+                    }
+                }
+                count++;
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return player;
+        }
+
+    }
+
