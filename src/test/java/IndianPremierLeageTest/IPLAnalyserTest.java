@@ -121,20 +121,19 @@ public class IPLAnalyserTest {
     @Test
     public void BestEconomyRates_Bowlers()  {
         try {
-            iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
-            String Data = iplAnalyser.BestEconomyRates_Bowlers();
-            System.out.println(Data);
-
-            IPLWktsCSV[] iplCSV = new Gson().fromJson(Data, IPLWktsCSV[].class);
-            Assert.assertEquals("Ben Cutting", iplCSV[0].PLAYER);
+            iplAnalyser.loadBowlingdata(MOCKITO_WKT_CSV);    //mockito 10
+            when(iplAnalyserMock.BestEconomyRates_Bowlers()).thenReturn("uvw");
+            Assert.assertEquals("uvw", iplAnalyserMock.BestEconomyRates_Bowlers());
+            verify(iplAnalyserMock).BestEconomyRates_Bowlers();
         } catch (IPLAnalyserException e) {
 
             e.printStackTrace();
         }
     }  @Test
     public void BestStrikingRates_4w_Bowlers()  {
-        String Data = iplAnalyser.BestStrikingRates_5w(IPL_CSV_WICKETS);
-        Assert.assertEquals("Imran Tahir", Data);
+        when(iplAnalyserMock.BestStrikingRates_5w(MOCKITO_TEST_CSV)).thenReturn("abc");
+        Assert.assertEquals("abc", iplAnalyserMock.BestStrikingRates_5w(MOCKITO_TEST_CSV));
+        verify(iplAnalyserMock).BestStrikingRates_5w(MOCKITO_TEST_CSV);
     }
     @Test
     public void BestAverages_with_StrikingRates_Bowlers()  {
