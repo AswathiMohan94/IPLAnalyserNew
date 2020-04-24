@@ -149,7 +149,7 @@ public class IPLAnalyser {
         }
 
     }
-    public static String BestStrikeRate_Six(String csvFilepath) {
+    public String BestStrikeRate_Six(String csvFilepath) {
         double six = 0;
         double strike = 0;
         String player = "";
@@ -182,7 +182,7 @@ public class IPLAnalyser {
             return player;
         }
     }
-    public static String BestStrikeRate_four(String csvFilepath) {
+    public String BestStrikeRate_four(String csvFilepath) {
         double four = 0;
         double strike = 0;
         String player = "";
@@ -215,7 +215,7 @@ public class IPLAnalyser {
             return player;
         }
     }
-    public static String Max_Runs_BestAvg(String csvFilepath) {
+    public  String Max_Runs_BestAvg(String csvFilepath) {
         double runs = 0;
         double avg = 0;
         String batsman = "";
@@ -249,7 +249,7 @@ public class IPLAnalyser {
         }
     }
 
-        public static String BestAvg_StrikingRate (String csvFilepath){
+        public String BestAvg_StrikingRate (String csvFilepath){
             double strike = 0;
             double average = 0;
             String player = "";
@@ -355,7 +355,7 @@ public class IPLAnalyser {
         return sortedByBowlingValue;
     }
 
-    public static String BestStrikingRates_5w(String csvFilepath) {
+    public String BestStrikingRates_5w(String csvFilepath) {
         double strikeRate = 0;
         double fourW = 0;
         String bowler = "";
@@ -390,7 +390,7 @@ public class IPLAnalyser {
 
     }
 
-    public static String BowlingAverages_StrikingRates(String csvFilepath) {
+    public  String BowlingAverages_StrikingRates(String csvFilepath) {
         double average = 0;
         double strikeRate = 0;
         String bowler = "";
@@ -425,7 +425,7 @@ public class IPLAnalyser {
     }
 
 
-    public static String Wickets_BestAvg(String csvFilepath) {
+    public String Wickets_BestAvg(String csvFilepath) {
         double wicket = 0;
         double average = 0;
         String bowler = "";
@@ -460,7 +460,7 @@ public class IPLAnalyser {
 
     }
 
-    public static String Best_Batting_Bowling_Avg(String csvFilepath, String csvFilepath1) {
+    public String Best_Batting_Bowling_Avg(String csvFilepath, String csvFilepath1) {
         double batting = 0;
         double bowling = 0;
         String player = "";
@@ -506,7 +506,7 @@ public class IPLAnalyser {
 
     }
 
-    public static String Best_Runs_wickets(String csvFilepath1, String csvFilepath) {
+    public String Best_Runs_wickets(String csvFilepath1, String csvFilepath) {
         int runs = 0;
         int wicket = 0;
         String player = "";

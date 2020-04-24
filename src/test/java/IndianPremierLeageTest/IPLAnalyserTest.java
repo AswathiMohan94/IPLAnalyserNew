@@ -47,7 +47,7 @@ public class IPLAnalyserTest {
 
     }
     @Test
-    public void TopBattingAveragesOfCricketers()  {     //mockito 1
+    public void TopBattingAveragesOfCricketers()  {
         try {
             iplAnalyser.loadIPLdata(MOCKITO_TEST_CSV);
             when(iplAnalyserMock.getAverageWiseSortedData()).thenReturn("xyz");
@@ -74,15 +74,15 @@ public class IPLAnalyserTest {
     @Test
     public void Max_6s_4s()  {              //mockito 3
 
-        when(iplAnalyserMock.Max_six_four(MOCKITO_TEST_CSV)).thenReturn("uvw");
-        Assert.assertEquals("uvw",iplAnalyserMock.Max_six_four(MOCKITO_TEST_CSV));
+        when(iplAnalyserMock.Max_six_four(MOCKITO_TEST_CSV)).thenReturn("xyz");
+        Assert.assertEquals("xyz",iplAnalyserMock.Max_six_four(MOCKITO_TEST_CSV));
         verify(iplAnalyserMock).Max_six_four(MOCKITO_TEST_CSV);
-           }
-
+    }
     @Test
-    public void BestStrikeRate_with_6s()  {
-        String Data = iplAnalyser.BestStrikeRate_Six(IPL_CSV);
-        Assert.assertEquals("Ishant Sharma", Data);
+    public void BestStrikeRate_with_6s()  {     //mockito 4
+        when(iplAnalyserMock.BestStrikeRate_Six(MOCKITO_TEST_CSV)).thenReturn("uvw");
+        Assert.assertEquals("uvw",iplAnalyserMock.BestStrikeRate_Six(MOCKITO_TEST_CSV));
+        verify(iplAnalyserMock).BestStrikeRate_Six(MOCKITO_TEST_CSV);
     }
     @Test
     public void BestStrikeRate_with_4s()  {
