@@ -137,8 +137,9 @@ public class IPLAnalyserTest {
     }
     @Test
     public void BestAverages_with_StrikingRates_Bowlers()  {
-        String Data = iplAnalyser.BowlingAverages_StrikingRates(IPL_CSV_WICKETS);
-        Assert.assertEquals("Krishnappa Gowtham", Data);
+        when(iplAnalyserMock.BowlingAverages_StrikingRates(MOCKITO_TEST_CSV)).thenReturn("abc");
+        Assert.assertEquals("abc", iplAnalyserMock.BowlingAverages_StrikingRates(MOCKITO_TEST_CSV));
+        verify(iplAnalyserMock).BowlingAverages_StrikingRates(MOCKITO_TEST_CSV);
     }
     @Test
     public void Wickets_BestAvg_Bowlers()  {
