@@ -85,9 +85,11 @@ public class IPLAnalyserTest {
         verify(iplAnalyserMock).BestStrikeRate_Six(MOCKITO_TEST_CSV);
     }
     @Test
-    public void BestStrikeRate_with_4s()  {
-        String Data = iplAnalyser.BestStrikeRate_four(IPL_CSV);
-        Assert.assertEquals("Ishant Sharma", Data);
+
+    public void BestStrikeRate_with_4s()  { //mockito 5
+        when(iplAnalyserMock.BestStrikeRate_four(MOCKITO_TEST_CSV)).thenReturn("uvw");
+        Assert.assertEquals("uvw",iplAnalyserMock.BestStrikeRate_four(MOCKITO_TEST_CSV));
+        verify(iplAnalyserMock).BestStrikeRate_four(MOCKITO_TEST_CSV);
     }
     @Test
     public void BestAvg_StrikeRate()  {
