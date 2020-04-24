@@ -21,29 +21,26 @@ public class IPLAnalyserTest {
     private static final String IPL_CSV = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String IPL_CSV_WICKETS = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
     private static final String MOCKITO_TEST_CSV="./src/test/resources/csvToTest.csv";
+    private static final String MOCKITO_WKT_CSV="./src/test/resources/csvToTestWkt.csv";
+
+
     IPLAnalyser iplAnalyser = null;
 
     @Mock
         IPLAnalyser iplAnalyserMock;
-    getAverageWiseSortedData dataMock;
+
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     Map<String, Player> battingMap;
-    Map<String,IPLWktsDAO> bowlingMap;
+    Map<String,Player> bowlingMap;
 
 
     @Before
     public void setUp() throws Exception, IPLAnalyserException {
         iplAnalyser = new IPLAnalyser();
         this.iplAnalyserMock = mock(IPLAnalyser.class);
-       /* this.dataMock=mock(IPLAnalyser.getAverageWiseSortedData());
-        this.dataMock=mock(IPLAnalyser.getAverageWiseSortedData());
-        this.battingMap=new HashMap<String, Player>();
-        this.battingMap.put("xyz",new Player("xyz",123,20));
-        this.battingMap.put("pqr",new Player("pqr",200,23));
-        this.battingMap.put("abc",new Player("abc",150,35));*/
 
     }
     @Test
@@ -106,15 +103,12 @@ public class IPLAnalyserTest {
     @Test
     public void Bowling_Best_Avg()  {
         try {
-            iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
-            String sortedData = iplAnalyser.getMaxBowling_Avg();
-            System.out.println(sortedData);
-            IPLWktsCSV[] iplCSV = new Gson().fromJson(sortedData, IPLWktsCSV[].class);
-            Assert.assertEquals("Krishnappa Gowtham", iplCSV[0].PLAYER);
-        } catch (IPLAnalyserException e) {
+            iplAnalyser.loadBowlingdata(MOCKITO_WKT_CSV);  //mockito 8
+            when(iplAnalyserMock.getMaxBowling_Avg()).thenReturn("pqr");
+            Assert.assertEquals("pqr",iplAnalyserMock.getMaxBowling_Avg());
+            verify(iplAnalyserMock).getMaxBowling_Avg();
 
-            e.printStackTrace();
-        }
+        } catch (IPLAnalyserException e) { }
     }
     @Test
     public void TopStrikingRates_Bowlers()  {

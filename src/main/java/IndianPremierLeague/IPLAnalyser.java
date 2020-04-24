@@ -15,7 +15,7 @@ public class IPLAnalyser {
 
 
     static Map<String, IPLdataDAO> IPLdataMap = null;
-    Map<String, IPLWktsDAO> IPLWktMap = null;
+    static Map<String, IPLWktsDAO> IPLWktMap = null;
 
 
     public IPLAnalyser() {
