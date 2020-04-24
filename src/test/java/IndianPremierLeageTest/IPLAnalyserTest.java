@@ -50,7 +50,6 @@ public class IPLAnalyserTest {
     public void TopBattingAveragesOfCricketers()  {
         try {
             iplAnalyser.loadIPLdata(MOCKITO_TEST_CSV);
-
             when(iplAnalyserMock.getAverageWiseSortedData()).thenReturn("xyz");
             Assert.assertEquals("xyz",iplAnalyserMock.getAverageWiseSortedData());
             verify(iplAnalyserMock).getAverageWiseSortedData();
@@ -64,10 +63,10 @@ public class IPLAnalyserTest {
     @Test
     public void StrikingRates_Batsman() {
         try {
-            iplAnalyser.loadIPLdata(IPL_CSV);
-            String sortedData = iplAnalyser.getStrikingRates();
-            IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
-            Assert.assertEquals("Ishant Sharma", iplCSV[0].PLAYER);
+            iplAnalyser.loadIPLdata(MOCKITO_TEST_CSV);
+            when(iplAnalyserMock.getStrikingRates()).thenReturn("uvw");
+            Assert.assertEquals("uvw",iplAnalyserMock.getStrikingRates());
+            verify(iplAnalyserMock).getStrikingRates();
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
         }
