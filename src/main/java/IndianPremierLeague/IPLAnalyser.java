@@ -13,7 +13,8 @@ import static java.util.stream.Collectors.toCollection;
 
 public class IPLAnalyser {
 
-    Map<String, IPLdataDAO> IPLdataMap = null;
+
+    static Map<String, IPLdataDAO> IPLdataMap = null;
     Map<String, IPLWktsDAO> IPLWktMap = null;
 
 
