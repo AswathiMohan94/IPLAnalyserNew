@@ -92,11 +92,11 @@ public class IPLAnalyserTest {
         verify(iplAnalyserMock).BestStrikeRate_four(MOCKITO_TEST_CSV);
     }
     @Test
-    public void BestAvg_StrikeRate()  {
-        String Data = iplAnalyser.BestAvg_StrikingRate(IPL_CSV);
-        Assert.assertEquals("David Warner", Data);
+    public void BestAvg_StrikeRate() {      //mockito 6
+        when(iplAnalyserMock.BestAvg_StrikingRate(MOCKITO_TEST_CSV)).thenReturn("xyz");
+        Assert.assertEquals("xyz", iplAnalyserMock.BestAvg_StrikingRate(MOCKITO_TEST_CSV));
+        verify(iplAnalyserMock).BestAvg_StrikingRate(MOCKITO_TEST_CSV);
     }
-
     @Test
     public void Max_Runs_BestAvg()  {
         String Data = iplAnalyser.Max_Runs_BestAvg(IPL_CSV);
