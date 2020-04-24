@@ -409,6 +409,7 @@ public class IPLAnalyser {
                             average = individualAverage;
                             strikeRate = individualStrikeRate;
                             bowler = record[1];
+                            System.out.println(bowler);
                         }
 
                     }
@@ -455,6 +456,7 @@ public class IPLAnalyser {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            System.out.println(bowler);
             return bowler;
         }
 

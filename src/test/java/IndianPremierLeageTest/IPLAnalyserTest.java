@@ -131,20 +131,21 @@ public class IPLAnalyserTest {
         }
     }  @Test
     public void BestStrikingRates_4w_Bowlers()  {
-        when(iplAnalyserMock.BestStrikingRates_5w(MOCKITO_TEST_CSV)).thenReturn("abc");
-        Assert.assertEquals("abc", iplAnalyserMock.BestStrikingRates_5w(MOCKITO_TEST_CSV));
-        verify(iplAnalyserMock).BestStrikingRates_5w(MOCKITO_TEST_CSV);
+        when(iplAnalyserMock.BestStrikingRates_5w(MOCKITO_WKT_CSV)).thenReturn("abc");
+        Assert.assertEquals("abc", iplAnalyserMock.BestStrikingRates_5w(MOCKITO_WKT_CSV));
+        verify(iplAnalyserMock).BestStrikingRates_5w(MOCKITO_WKT_CSV);
     }
     @Test
     public void BestAverages_with_StrikingRates_Bowlers()  {
-        when(iplAnalyserMock.BowlingAverages_StrikingRates(MOCKITO_TEST_CSV)).thenReturn("abc");
-        Assert.assertEquals("abc", iplAnalyserMock.BowlingAverages_StrikingRates(MOCKITO_TEST_CSV));
-        verify(iplAnalyserMock).BowlingAverages_StrikingRates(MOCKITO_TEST_CSV);
+        when(iplAnalyserMock.BowlingAverages_StrikingRates(MOCKITO_WKT_CSV)).thenReturn("abc");
+        Assert.assertEquals("abc", iplAnalyserMock.BowlingAverages_StrikingRates(MOCKITO_WKT_CSV));
+        verify(iplAnalyserMock).BowlingAverages_StrikingRates(MOCKITO_WKT_CSV);
     }
     @Test
     public void Wickets_BestAvg_Bowlers()  {
-        String Data = iplAnalyser.Wickets_BestAvg(IPL_CSV_WICKETS);
-        Assert.assertEquals("Imran Tahir", Data);
+        when(iplAnalyserMock.Wickets_BestAvg(MOCKITO_WKT_CSV)).thenReturn("abc");
+        Assert.assertEquals("abc", iplAnalyserMock.Wickets_BestAvg(MOCKITO_WKT_CSV));
+        verify(iplAnalyserMock).Wickets_BestAvg(MOCKITO_WKT_CSV);
     }
 
     @Test
@@ -154,6 +155,8 @@ public class IPLAnalyserTest {
     }
     @Test
     public void Best_Runs_wickets() {
+
+
         String Data = iplAnalyser.Best_Runs_wickets(IPL_CSV_WICKETS,IPL_CSV);
         Assert.assertEquals("David Warner", Data);
     }
