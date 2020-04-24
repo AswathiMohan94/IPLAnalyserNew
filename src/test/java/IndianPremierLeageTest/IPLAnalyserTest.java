@@ -21,7 +21,7 @@ public class IPLAnalyserTest {
     private static final String IPL_CSV = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String IPL_CSV_WICKETS = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
     private static final String MOCKITO_TEST_CSV="./src/test/resources/csvToTest.csv";
-    private static final String MOCKITO_WKT_CSV="./src/test/resources/csvToTestWkt.csv";
+    private static final String MOCKITO_WKT_CSV="./src/test/resources/csvToTestWkts.csv";
 
 
     IPLAnalyser iplAnalyser = null;
@@ -107,22 +107,16 @@ public class IPLAnalyserTest {
             when(iplAnalyserMock.getMaxBowling_Avg()).thenReturn("pqr");
             Assert.assertEquals("pqr",iplAnalyserMock.getMaxBowling_Avg());
             verify(iplAnalyserMock).getMaxBowling_Avg();
-
-        } catch (IPLAnalyserException e) { }
+        } catch (IPLAnalyserException e) { e.printStackTrace();}
     }
     @Test
     public void TopStrikingRates_Bowlers()  {
         try {
-            iplAnalyser.loadBowlingdata(IPL_CSV_WICKETS);
-            String sortedData = iplAnalyser.getStrikingRates_bowlers();
-            System.out.println(sortedData);
-
-            IPLWktsCSV[] iplCSV = new Gson().fromJson(sortedData, IPLWktsCSV[].class);
-            Assert.assertEquals("Krishnappa Gowtham", iplCSV[0].PLAYER);
-        } catch (IPLAnalyserException e) {
-
-            e.printStackTrace();
-        }
+            iplAnalyser.loadBowlingdata(MOCKITO_WKT_CSV);    //mockito 9
+            when(iplAnalyserMock.getStrikingRates_bowlers()).thenReturn("uvw");
+            Assert.assertEquals("uvw", iplAnalyserMock.getStrikingRates_bowlers());
+            verify(iplAnalyserMock).getStrikingRates_bowlers();
+        } catch (IPLAnalyserException e) { e.printStackTrace(); }
     }
     @Test
     public void BestEconomyRates_Bowlers()  {
