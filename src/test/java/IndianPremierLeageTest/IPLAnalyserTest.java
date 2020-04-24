@@ -150,9 +150,11 @@ public class IPLAnalyserTest {
 
     @Test
     public void Best_Batting_Bowling_Avg() {
-        String Data = iplAnalyser.Best_Batting_Bowling_Avg(IPL_CSV_WICKETS,IPL_CSV);
-        Assert.assertEquals("Imran Tahir", Data);
+        when(iplAnalyserMock.Best_Batting_Bowling_Avg(MOCKITO_WKT_CSV, MOCKITO_TEST_CSV)).thenReturn("abc");
+        Assert.assertEquals("abc", iplAnalyserMock.Best_Batting_Bowling_Avg(MOCKITO_WKT_CSV, MOCKITO_TEST_CSV));
+        verify(iplAnalyserMock).Best_Batting_Bowling_Avg(MOCKITO_WKT_CSV, MOCKITO_TEST_CSV);
     }
+
     @Test
     public void Best_Runs_wickets() {
 
