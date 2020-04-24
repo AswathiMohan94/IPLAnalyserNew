@@ -115,7 +115,7 @@ public class IPLAnalyser {
         return sortedByValue;
     }
 
-    public static String Max_six_four(String csvFilepath) {
+    public  String Max_six_four(String csvFilepath) {
         double six = 0;
         double four = 0;
         String batsman = "";

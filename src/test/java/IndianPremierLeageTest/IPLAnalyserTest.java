@@ -47,7 +47,7 @@ public class IPLAnalyserTest {
 
     }
     @Test
-    public void TopBattingAveragesOfCricketers()  {
+    public void TopBattingAveragesOfCricketers()  {     //mockito 1
         try {
             iplAnalyser.loadIPLdata(MOCKITO_TEST_CSV);
             when(iplAnalyserMock.getAverageWiseSortedData()).thenReturn("xyz");
@@ -61,7 +61,7 @@ public class IPLAnalyserTest {
     }
 
     @Test
-    public void StrikingRates_Batsman() {
+    public void StrikingRates_Batsman() {       //mockito 2
         try {
             iplAnalyser.loadIPLdata(MOCKITO_TEST_CSV);
             when(iplAnalyserMock.getStrikingRates()).thenReturn("uvw");
@@ -72,10 +72,13 @@ public class IPLAnalyserTest {
         }
     }
     @Test
-    public void Max_6s_4s()  {
-        String Data = iplAnalyser.Max_six_four(IPL_CSV);
-        Assert.assertEquals("David Warner", Data);
-    }
+    public void Max_6s_4s()  {              //mockito 3
+
+        when(iplAnalyserMock.Max_six_four(MOCKITO_TEST_CSV)).thenReturn("uvw");
+        Assert.assertEquals("uvw",iplAnalyserMock.Max_six_four(MOCKITO_TEST_CSV));
+        verify(iplAnalyserMock).Max_six_four(MOCKITO_TEST_CSV);
+           }
+
     @Test
     public void BestStrikeRate_with_6s()  {
         String Data = iplAnalyser.BestStrikeRate_Six(IPL_CSV);
