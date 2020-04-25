@@ -129,7 +129,7 @@ public class IPLAnalyser {
                     Double individualSix = Double.parseDouble(record[13]);
                     Double individualfour = Double.parseDouble(record[12]);
 
-                    if (four <= individualSix) {
+                    if (four <=  individualfour) {
                         if (six < individualSix) {
                             six = individualSix;
                             four = individualfour;
@@ -163,7 +163,7 @@ public class IPLAnalyser {
                     Double individualsix = Double.parseDouble(record[13]);
                     Double individualstrike = Double.parseDouble(record[9]);
 
-                    if (six <= individualstrike) {
+                    if (six <= individualsix) {
                         if (strike < individualstrike) {
                             strike = individualstrike;
                             six = individualsix;
@@ -196,7 +196,7 @@ public class IPLAnalyser {
                     Double individualfour = Double.parseDouble(record[12]);
                     Double individualstrike = Double.parseDouble(record[9]);
 
-                    if (four <= individualstrike) {
+                    if (four <= individualfour) {
                         if (strike < individualstrike) {
                             strike = individualstrike;
                             four = individualfour;
@@ -229,7 +229,7 @@ public class IPLAnalyser {
                     Double individualRun = Double.parseDouble(record[5]);
                     Double individualAvg = Double.parseDouble(record[7]);
 
-                    if (runs <= individualAvg) {
+                    if (runs <=individualRun) {
                         if (avg < individualAvg) {
                             avg = individualAvg;
                             runs = individualRun;
@@ -263,7 +263,7 @@ public class IPLAnalyser {
                         Double individualstrikeRate = Double.parseDouble(record[9]);
                         Double individualAverage = Double.parseDouble(record[7]);
 
-                        if (strike <= individualAverage) {
+                        if (strike <= individualstrikeRate) {
                             if (average < individualAverage) {
                                 average = individualAverage;
                                 strike = individualstrikeRate;
@@ -369,7 +369,7 @@ public class IPLAnalyser {
                     Double individualStrikeRate = Double.parseDouble(record[10]);
                     Double individualfourW = Double.parseDouble(record[11]);
 
-                    if (fourW <= individualStrikeRate) {
+                    if (fourW <= individualfourW) {
                         if (strikeRate < individualfourW) {
                             strikeRate = individualStrikeRate;
                             fourW = individualfourW;
@@ -404,7 +404,7 @@ public class IPLAnalyser {
                     Double individualStrikeRate = Double.parseDouble(record[10]);
                     Double individualAverage = Double.parseDouble(record[8]);
 
-                    if (strikeRate <= individualAverage) {
+                    if (strikeRate <= individualStrikeRate) {
                         if (average < individualAverage) {
                             average = individualAverage;
                             strikeRate = individualStrikeRate;
@@ -440,7 +440,7 @@ public class IPLAnalyser {
                     Double individualWicket = Double.parseDouble(record[6]);
                     Double individualAverage = Double.parseDouble(record[8]);
 
-                    if (average <= individualWicket) {
+                    if (average <= individualAverage) {
                         if (wicket < individualWicket) {
                             wicket = individualWicket;
                             average = individualAverage;
@@ -485,7 +485,7 @@ public class IPLAnalyser {
                             Double individualbatting = Double.parseDouble(record[7]);
                             Double individualbowling = Double.parseDouble(record1[8]);
 
-                            if (bowling <= individualbatting) {
+                            if (bowling <= individualbowling) {
                                 if (batting < individualbowling) {
                                     batting = individualbatting;
                                     bowling = individualbowling;
@@ -532,7 +532,7 @@ public class IPLAnalyser {
                             Integer individualruns = Integer.parseInt(record[5]);
                             Integer individualwicket = Integer.parseInt(record1[6]);
 
-                            if (wicket <= individualruns) {
+                            if (wicket <= individualwicket) {
                                 if (runs < individualwicket) {
                                     runs = individualruns;
                                     wicket = individualwicket;
