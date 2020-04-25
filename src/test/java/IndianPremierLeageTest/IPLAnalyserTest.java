@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class IPLAnalyserTest {
-
+    
     private static final String IPL_CSV = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String IPL_CSV_WICKETS = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
 
 
-    @Test
+  @Test
     public void TopBattingAveragesOfCricketers()  {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
@@ -56,13 +56,13 @@ public class IPLAnalyserTest {
     public void BestStrikeRate_with_6s()  {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
         String Data = iplAnalyser.BestStrikeRate_Six(IPL_CSV);
-        Assert.assertEquals("Ishant Sharma", Data);
+        Assert.assertEquals("Andre Russell", Data);
     }
     @Test
     public void BestStrikeRate_with_4s()  {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
         String Data = iplAnalyser.BestStrikeRate_four(IPL_CSV);
-        Assert.assertEquals("Ishant Sharma", Data);
+        Assert.assertEquals("David Warner", Data);
     }
     @Test
     public void BestAvg_StrikeRate()  {
@@ -138,11 +138,11 @@ public class IPLAnalyserTest {
         String Data = iplAnalyser.Wickets_BestAvg(IPL_CSV_WICKETS);
         Assert.assertEquals("Imran Tahir", Data);
     }
-     @Test
+    @Test
     public void Best_Batting_Bowling_Avg() {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
         String Data = iplAnalyser.Best_Batting_Bowling_Avg(IPL_CSV_WICKETS,IPL_CSV);
-        Assert.assertEquals("Imran Tahir", Data);
+        Assert.assertEquals("Liam Livingstone", Data);
     }
     @Test
     public void Best_Runs_With_wickets() {
@@ -152,4 +152,4 @@ public class IPLAnalyserTest {
     }
 }
 
-  
+
