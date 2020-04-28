@@ -11,7 +11,7 @@ public class IPLdataCSV {
     public double AvgBat;
 
     @CsvBindByName(column = "SR", required = true)
-    public double SR;
+    public double SRBat;
 
     @CsvBindByName(column = "MAT", required = true)
     public int MAT;
@@ -44,13 +44,12 @@ public class IPLdataCSV {
     public int six;
 
 
-
     @Override
     public String toString() {
         return "IPLdataCSV{" +
                 "PLAYER='" + PLAYER + '\'' +
                 ", Avg=" + AvgBat +
-                ", SR=" + SR +
+                ", SR=" + SRBat +
                 ", MAT=" + MAT +
                 ", Inns=" + Inns +
                 ", NO=" + NO +
