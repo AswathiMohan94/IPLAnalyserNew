@@ -44,10 +44,7 @@ import java.util.Map;
         } catch (CSVBuilderException e) {
             throw new IPLAnalyserException(e.getMessage(), e.type.name());
          }
-
     }
-
-
     public Map<String, IPLCricketDAO> loadBowlerData(String... csvFilepath) throws IPLAnalyserException, IOException, CSVBuilderException {
             try (Reader reader = Files.newBufferedReader(Paths.get(csvFilepath[0]));) {
                 ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
@@ -56,11 +53,7 @@ import java.util.Map;
                 while (csvWktFileIterator.hasNext()) {
                     IPLCricketDAO Wkts = new IPLCricketDAO(csvWktFileIterator.next());
                     this.IPLBallMap.put(Wkts.PLAYER, Wkts);
-               /* for (Map.Entry<String, IPLdataDAO> entry : IPLdataMap.entrySet()) {
-                    System.out.println(entry.getKey() + " : " + entry.getValue());
-                }*/
                 }
-
            return IPLBallMap;
         } catch (IOException e) {
             throw new IPLAnalyserException(e.getMessage(),

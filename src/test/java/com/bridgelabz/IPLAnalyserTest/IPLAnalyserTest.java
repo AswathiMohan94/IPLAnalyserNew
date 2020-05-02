@@ -46,9 +46,7 @@ public class IPLAnalyserTest {
         System.out.println(sortedData);
         IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
         Assert.assertEquals("Ishant Sharma", iplCSV[0].PLAYER);
-
     }
-
     @Test
     public void getCricketers_WithMax6sAnd4s_ReturnName() throws IPLAnalyserException, IOException, CSVBuilderException {
         iplAnalyser.loadIPLdata(IPLAnalyser.Cricketer.BATSMAN, IPL_CSV);
@@ -127,7 +125,6 @@ public class IPLAnalyserTest {
         IPLdataCSV[] iplCSV = new Gson().fromJson(sortedData, IPLdataCSV[].class);
         Assert.assertEquals("Krishnappa Gowtham", iplCSV[0].PLAYER);
     }
-
     @Test
     public void getCricketers_WithMaxRunsAndWickets_ReturnName() throws IPLAnalyserException, IOException, CSVBuilderException {
         iplAnalyser.loadIPLdata(IPLAnalyser.Cricketer.BOWLER, IPL_CSV_WICKETS);
